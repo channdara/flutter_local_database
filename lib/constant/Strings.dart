@@ -1,0 +1,37 @@
+class Strings {
+  static const String home = 'Home';
+  static const String login = 'Login';
+  static const String error = 'Error!';
+  static const String logout = 'Logout';
+  static const String username = 'Username';
+  static const String password = 'Password';
+  static const String account = 'Account';
+  static const String confirmPassword = 'Confirm Password';
+  static const String email = 'Email';
+  static const String phoneNumber = 'Phone Number';
+  static const String registerForm = 'Register Form';
+  static const String congratulation = 'Congratulation!';
+  static const String usernameRequired = 'Username required';
+  static const String passwordRequired = 'Password required';
+  static const String forgotPassword = 'Forgot yout password?';
+  static const String register = 'Register';
+  static const String resetPassword = 'Reset Password';
+  static const String checkUsername = 'Check Username';
+  static const String resetNow = 'Reset Now';
+  static const String notYetMemberRegisterHere = 'Not yet a memeber? REGISTER here.';
+  static const String pleaseInputUsername = 'Please input username';
+  static const String pleaseInputPassword = 'Please input password';
+  static const String pleaseInputNewPassword = 'Please input new password';
+  static const String pleaseInputConfirmPassword = 'Please input password again';
+  static const String pleaseInputNewConfirmPassword = 'Please input new password again';
+  static const String pleaseInputEmail = 'Please input email';
+  static const String pleaseInputPhoneNumber = 'Please input phone number';
+  static const String confirmPasswordDoesNotMatch = 'Confirm password and password does not match';
+  static const String privacyPolicy = 'No need to accept any fucking Privacy Policy. Just create your own account now. xD';
+  static const String usernameIsNotRegisterYet = 'Username is not register yet.';
+  static const String incorrectPassword = 'Incorrect password';
+  static const String sorrySomethingWentWrong = 'Sorry, something went wrong! Please try again later.';
+  static const String yourAccountHasBeenRegistered = 'Your account has been registered.';
+  static const String usernameNotFound = 'Username not found.';
+  static const String yourPasswordHasBeenReset = 'Your password has been reset';
+}
