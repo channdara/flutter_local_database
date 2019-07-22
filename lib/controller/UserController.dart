@@ -51,9 +51,17 @@ class UserController {
     return allUser;
   }
 
-  Future<User> getUser(String username) async {
+  Future<User> getUserByUsername(String username) async {
     var database = await _databaseHelper.database;
     var sql = """SELECT * FROM $userTable WHERE $userName = '$username'""";
+    var result = await database.rawQuery(sql);
+    database.close();
+    return result.isNotEmpty ? User.fromJson(result.first) : null;
+  }
+
+  Future<User> getUserByID(int id) async {
+    var database = await _databaseHelper.database;
+    var sql = """SELECT * FROM $userTable WHERE $userID = '$id'""";
     var result = await database.rawQuery(sql);
     database.close();
     return result.isNotEmpty ? User.fromJson(result.first) : null;

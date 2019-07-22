@@ -15,7 +15,7 @@ class RegisterRepository {
   RegisterRepository(this._registerCallBack);
 
   void register(User user) {
-    _userController.getUser(user.username).then((res) {
+    _userController.getUserByUsername(user.username).then((res) {
       res != null
           ? _registerCallBack.onRegisterError(Strings.usernameIsAlreadyExist)
           : _userController.insertUser(user).then((isSuccess) {

@@ -32,7 +32,6 @@ class Strings {
   static const pleaseInputPhoneNumber = 'Please input phone number';
   static const confirmPasswordDoesNotMatch = 'Confirm password and password does not match';
   static const privacyPolicy = 'No need to accept any fucking Privacy Policy. Just create your own account now. xD';
-  static const usernameIsNotRegisterYet = 'Username is not register yet.';
   static const usernameIsAlreadyExist = 'Username is already exist.';
   static const incorrectPassword = 'Incorrect password';
   static const sorrySomethingWentWrong = 'Sorry, something went wrong! Please try again later.';

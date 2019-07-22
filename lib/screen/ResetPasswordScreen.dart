@@ -122,7 +122,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
               onPressed: _isEnabled
                   ? () {
                       if (!_formCheckUsernameKey.currentState.validate()) return;
-                      _resetPasswordRepository.checkUsername(_usernameController.text);
+                      _resetPasswordRepository.checkUsername(_usernameController.text.trim());
                     }
                   : null,
             ),

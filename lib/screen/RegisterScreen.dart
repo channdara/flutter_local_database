@@ -152,9 +152,9 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterCall
                   onPressed: () {
                     if (!_formKey.currentState.validate()) return;
                     var user = User(
-                      username: _usernameController.text,
+                      username: _usernameController.text.trim(),
                       password: _confirmPasswordController.text,
-                      email: _emailController.text,
+                      email: _emailController.text.trim(),
                       phoneNumber: _phoneNumberController.text,
                     );
                     _registerRepository.register(user);

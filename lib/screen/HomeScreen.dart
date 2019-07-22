@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:learning_local_database/constant/Strings.dart';
-import 'package:learning_local_database/model/User.dart';
 import 'package:learning_local_database/screen/SettingsScreen.dart';
 import 'package:learning_local_database/widget/BaseContainer.dart';
 
 class HomeScreen extends StatefulWidget {
-  static void pushAndRemoveUntil(BuildContext context, User user) =>
-      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => HomeScreen(user)), (_) => false);
+  static void pushAndRemoveUntil(BuildContext context, int id) =>
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => HomeScreen(id)), (_) => false);
 
-  final User user;
+  final int id;
 
-  HomeScreen(this.user);
+  HomeScreen(this.id);
 
   @override
   State createState() => _HomeScreenState();
@@ -25,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: Colors.red,
         actions: <Widget>[
           IconButton(
-            onPressed: () => SettingsScreen.push(context),
+            onPressed: () => SettingsScreen.push(context, widget.id),
             icon: Icon(Icons.settings),
           ),
         ],

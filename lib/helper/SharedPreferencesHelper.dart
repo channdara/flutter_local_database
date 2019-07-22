@@ -1,6 +1,3 @@
-import 'dart:convert';
-
-import 'package:learning_local_database/model/User.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesHelper {
@@ -12,10 +9,9 @@ class SharedPreferencesHelper {
     await pref.setString(tokenKey, token);
   }
 
-  static Future saveUser(User user) async {
+  static Future saveUserID(int id) async {
     var pref = await SharedPreferences.getInstance();
-    var data = json.encode(user.toJson());
-    await pref.setString(userKey, data);
+    await pref.setInt(userKey, id);
   }
 
   static Future<String> loadToken() async {
@@ -23,15 +19,14 @@ class SharedPreferencesHelper {
     return pref.getString(tokenKey);
   }
 
-  static Future<User> loadUser() async {
+  static Future<int> loadUserID() async {
     var pref = await SharedPreferences.getInstance();
-    var data = json.decode(pref.getString(userKey));
-    return User.fromJson(data);
+    return pref.getInt(userKey);
   }
 
   static Future removeTokenAndUser() async {
     var pref = await SharedPreferences.getInstance();
-    await pref.remove(userKey);
     await pref.remove(tokenKey);
+    await pref.remove(userKey);
   }
 }

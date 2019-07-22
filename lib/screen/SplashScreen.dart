@@ -34,8 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
       _startTimer(() => LoginScreen.pushAndRemoveUntil(context));
       return;
     }
-    var user = await SharedPreferencesHelper.loadUser();
-    _startTimer(() => HomeScreen.pushAndRemoveUntil(context, user));
+    var id = await SharedPreferencesHelper.loadUserID();
+    _startTimer(() => HomeScreen.pushAndRemoveUntil(context, id));
   }
 
   void _startTimer(VoidCallback fun) => Timer(Duration(seconds: 2), fun);

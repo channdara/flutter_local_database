@@ -1,9 +1,8 @@
 import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/controller/UserController.dart';
-import 'package:learning_local_database/model/User.dart';
 
 abstract class LoginCallback {
-  void onLoginSuccess(User user, String token);
+  void onLoginSuccess(int id, String token);
 
   void onLoginError(String error);
 }
@@ -15,9 +14,9 @@ class LoginRepository {
   LoginRepository(this._loginCallback);
 
   void login(String username, String password) async {
-    _userController.getUser(username).then((user) {
+    _userController.getUserByUsername(username).then((user) {
       if (user == null) {
-        _loginCallback.onLoginError(Strings.usernameIsNotRegisterYet);
+        _loginCallback.onLoginError(Strings.usernameNotFound);
         return;
       }
       if (user.password != password) {
@@ -25,7 +24,7 @@ class LoginRepository {
         return;
       }
       var token = '${user.username}_${user.email}_${user.phoneNumber}';
-      _loginCallback.onLoginSuccess(user, token);
+      _loginCallback.onLoginSuccess(user.id, token);
     });
   }
 }

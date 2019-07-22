@@ -7,6 +7,8 @@ class User {
   String email;
   String phoneNumber;
 
+  User.defaultConstructor({this.id = 0, this.username = '', this.password = '', this.email = '', this.phoneNumber = ''});
+
   User({this.id, this.username, this.password, this.email, this.phoneNumber});
 
   User.fromJson(Map<String, dynamic> data) {

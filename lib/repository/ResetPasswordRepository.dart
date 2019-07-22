@@ -19,7 +19,7 @@ class ResetPasswordRepository {
   ResetPasswordRepository(this._resetPasswordCallback);
 
   void checkUsername(String username) {
-    _userController.getUser(username).then((user) {
+    _userController.getUserByUsername(username).then((user) {
       user == null
           ? _resetPasswordCallback.onCheckUsernameError(Strings.usernameNotFound)
           : _resetPasswordCallback.onCheckUsernameSuccess(user);

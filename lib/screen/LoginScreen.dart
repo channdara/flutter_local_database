@@ -34,10 +34,10 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
   }
 
   @override
-  void onLoginSuccess(User user, String token) {
+  void onLoginSuccess(int id, String token) {
     SharedPreferencesHelper.saveToken(token);
-    SharedPreferencesHelper.saveUser(user);
-    HomeScreen.pushAndRemoveUntil(context, user);
+    SharedPreferencesHelper.saveUserID(id);
+    HomeScreen.pushAndRemoveUntil(context, id);
   }
 
   @override
@@ -100,7 +100,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
                   text: Strings.login,
                   onPressed: () {
                     if (!_formKey.currentState.validate()) return;
-                    var username = _usernameController.text;
+                    var username = _usernameController.text.trim();
                     var password = _passwordController.text;
                     _loginRepository.login(username, password);
                   },
