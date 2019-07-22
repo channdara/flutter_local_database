@@ -37,6 +37,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
   void onCheckUsernameSuccess(User user) {
     _isUsernameChecked = true;
     _user = user;
+    FocusScope.of(context).requestFocus(_passwordFocusNode);
     setState(() {});
   }
 

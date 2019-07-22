@@ -12,8 +12,8 @@ import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 import 'package:learning_local_database/widget/BaseTextFormField.dart';
 
 class LoginScreen extends StatefulWidget {
-  static void pushReplacement(BuildContext context) =>
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => LoginScreen()));
+  static void pushAndRemoveUntil(BuildContext context) =>
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => LoginScreen()), (_) => false);
 
   @override
   State createState() => _LoginScreenState();
@@ -21,7 +21,7 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
   final _formKey = GlobalKey<FormState>();
-  LoginRepository _loginResponse;
+  LoginRepository _loginRepository;
   FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
   TextEditingController _usernameController = TextEditingController();
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
 
   @override
   void initState() {
-    _loginResponse = LoginRepository(this);
+    _loginRepository = LoginRepository(this);
     super.initState();
   }
 
@@ -37,14 +37,12 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
   void onLoginSuccess(User user, String token) {
     SharedPreferencesHelper.saveToken(token);
     SharedPreferencesHelper.saveUser(user);
-    HomeScreen.pushReplacement(context, user);
+    HomeScreen.pushAndRemoveUntil(context, user);
   }
 
   @override
   void onLoginError(String error) {
-    AlertDialogUtil.showAlertDialog(context, Strings.error, error, () {
-      Navigator.pop(context);
-    });
+    AlertDialogUtil.showAlertDialog(context, Strings.error, error, () => Navigator.pop(context));
   }
 
   @override
@@ -103,7 +101,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
                     if (!_formKey.currentState.validate()) return;
                     var username = _usernameController.text;
                     var password = _passwordController.text;
-                    _loginResponse.login(username, password);
+                    _loginRepository.login(username, password);
                   },
                 ),
               ),

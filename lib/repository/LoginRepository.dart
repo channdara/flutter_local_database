@@ -16,14 +16,16 @@ class LoginRepository {
 
   void login(String username, String password) async {
     _userController.getUser(username).then((user) {
+      if (user == null) {
+        _loginCallback.onLoginError(Strings.usernameIsNotRegisterYet);
+        return;
+      }
       if (user.password != password) {
         _loginCallback.onLoginError(Strings.incorrectPassword);
         return;
       }
       var token = '${user.username}_${user.email}_${user.phoneNumber}';
       _loginCallback.onLoginSuccess(user, token);
-    }).catchError((error) {
-      _loginCallback.onLoginError(Strings.usernameIsNotRegisterYet);
     });
   }
 }

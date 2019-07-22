@@ -31,11 +31,11 @@ class _SplashScreenState extends State<SplashScreen> {
   void _checkToken() async {
     var token = await SharedPreferencesHelper.loadToken();
     if (token == null) {
-      _startTimer(() => LoginScreen.pushReplacement(context));
+      _startTimer(() => LoginScreen.pushAndRemoveUntil(context));
       return;
     }
     var user = await SharedPreferencesHelper.loadUser();
-    _startTimer(() => HomeScreen.pushReplacement(context, user));
+    _startTimer(() => HomeScreen.pushAndRemoveUntil(context, user));
   }
 
   void _startTimer(VoidCallback fun) => Timer(Duration(seconds: 2), fun);

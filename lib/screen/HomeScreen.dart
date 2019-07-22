@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:learning_local_database/constant/Strings.dart';
-import 'package:learning_local_database/helper/SharedPreferencesHelper.dart';
 import 'package:learning_local_database/model/User.dart';
-import 'package:learning_local_database/screen/LoginScreen.dart';
+import 'package:learning_local_database/screen/SettingsScreen.dart';
 import 'package:learning_local_database/widget/BaseContainer.dart';
-import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 
 class HomeScreen extends StatefulWidget {
-  static void pushReplacement(BuildContext context, User user) =>
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomeScreen(user)));
+  static void pushAndRemoveUntil(BuildContext context, User user) =>
+      Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (_) => HomeScreen(user)), (_) => false);
 
   final User user;
 
@@ -22,16 +20,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      appBar: AppBar(title: Text(Strings.home), backgroundColor: Colors.red),
-      body: Container(
-        padding: EdgeInsets.all(16.0),
-        child: BaseRaisedButton(
-          text: Strings.logout,
-          onPressed: () {
-            SharedPreferencesHelper.removeTokenAndUser().then((_) => LoginScreen.pushReplacement(context));
-          },
-        ),
+      appBar: AppBar(
+        title: Text(Strings.home),
+        backgroundColor: Colors.red,
+        actions: <Widget>[
+          IconButton(
+            onPressed: () => SettingsScreen.push(context),
+            icon: Icon(Icons.settings),
+          ),
+        ],
       ),
+      body: Container(),
     );
   }
 }
