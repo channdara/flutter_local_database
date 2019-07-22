@@ -20,7 +20,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
   final _sizedBox = SizedBox(height: 16.0);
   User _user;
   bool _isUsernameChecked = false;
+  bool _isEnabled = true;
   ResetPasswordRepository _resetPasswordRepository;
+  FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
   FocusNode _confirmPasswordFocusNode = FocusNode();
   TextEditingController _usernameController = TextEditingController();
@@ -36,9 +38,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
   @override
   void onCheckUsernameSuccess(User user) {
     _isUsernameChecked = true;
+    _isEnabled = false;
     _user = user;
     FocusScope.of(context).requestFocus(_passwordFocusNode);
-    setState(() {});
   }
 
   @override
@@ -52,7 +54,10 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
       _usernameController.text = '';
       _passwordController.text = '';
       _confirmPasswordController.text = '';
+      _isUsernameChecked = false;
+      _isEnabled = true;
       Navigator.pop(context);
+      setState(() {});
     });
   }
 
@@ -104,6 +109,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
           BaseTextFormField(
             labelText: Strings.username,
             controller: _usernameController,
+            focusNode: _usernameFocusNode,
+            enabled: _isEnabled,
             validator: (text) => text.isEmpty ? Strings.usernameRequired : null,
           ),
           _sizedBox,
@@ -112,10 +119,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
             height: 48.0,
             child: BaseRaisedButton(
               text: Strings.checkUsername,
-              onPressed: () {
-                if (!_formCheckUsernameKey.currentState.validate()) return;
-                _resetPasswordRepository.checkUsername(_usernameController.text);
-              },
+              onPressed: _isEnabled
+                  ? () {
+                      if (!_formCheckUsernameKey.currentState.validate()) return;
+                      _resetPasswordRepository.checkUsername(_usernameController.text);
+                    }
+                  : null,
             ),
           ),
         ],

@@ -17,12 +17,12 @@ class Strings {
   static const congratulation = 'Congratulation!';
   static const usernameRequired = 'Username required';
   static const passwordRequired = 'Password required';
-  static const forgotPassword = 'Forgot yout password?';
+  static const forgotPassword = 'Forgot your password?';
   static const register = 'Register';
   static const resetPassword = 'Reset Password';
   static const checkUsername = 'Check Username';
   static const resetNow = 'Reset Now';
-  static const notYetMemberRegisterHere = 'Not yet a memeber? REGISTER here.';
+  static const notYetMemberRegisterHere = 'Not yet a memeber? Register here.';
   static const pleaseInputUsername = 'Please input username';
   static const pleaseInputPassword = 'Please input password';
   static const pleaseInputNewPassword = 'Please input new password';

@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
     return SingleChildScrollView(
       child: Container(
         margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0, bottom: 8.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(8.0),
           color: Colors.white,
@@ -73,16 +73,17 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
           child: Column(
             children: <Widget>[
               Text(Strings.login, style: TextStyle(fontSize: 20.0)),
-              SizedBox(height: 16.0),
-              BaseTextFormField(
-                labelText: Strings.username,
-                controller: _usernameController,
-                focusNode: _usernameFocusNode,
-                textInputAction: TextInputAction.next,
-                onFieldSubmitted: (_) => BaseTextFormField.switchNode(context, _usernameFocusNode, _passwordFocusNode),
-                validator: (text) => text.isEmpty ? Strings.usernameRequired : null,
+              Container(
+                margin: EdgeInsets.only(top: 16.0, bottom: 16.0),
+                child: BaseTextFormField(
+                  labelText: Strings.username,
+                  controller: _usernameController,
+                  focusNode: _usernameFocusNode,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (_) => BaseTextFormField.switchNode(context, _usernameFocusNode, _passwordFocusNode),
+                  validator: (text) => text.isEmpty ? Strings.usernameRequired : null,
+                ),
               ),
-              SizedBox(height: 16.0),
               BaseTextFormField(
                 labelText: Strings.password,
                 obscureText: true,
@@ -91,10 +92,10 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
                 textInputAction: TextInputAction.done,
                 validator: (text) => text.isEmpty ? Strings.passwordRequired : null,
               ),
-              SizedBox(height: 24.0),
               Container(
                 width: double.infinity,
                 height: 48.0,
+                margin: EdgeInsets.only(top: 32.0, bottom: 32.0),
                 child: BaseRaisedButton(
                   text: Strings.login,
                   onPressed: () {
@@ -105,15 +106,20 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
                   },
                 ),
               ),
-              SizedBox(height: 32.0),
               InkWell(
                 onTap: () => ResetPasswordScreen.push(context),
-                child: Text(Strings.forgotPassword, style: TextStyle(color: Colors.red)),
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(Strings.forgotPassword, style: TextStyle(color: Colors.red)),
+                ),
               ),
-              SizedBox(height: 32.0),
               InkWell(
                 onTap: () => RegisterScreen.push(context),
-                child: Text(Strings.notYetMemberRegisterHere, style: TextStyle(color: Colors.blue)),
+                child: Container(
+                  margin: EdgeInsets.only(top: 24.0),
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(Strings.notYetMemberRegisterHere, style: TextStyle(color: Colors.blue)),
+                ),
               ),
             ],
           ),
