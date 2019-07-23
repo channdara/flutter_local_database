@@ -41,6 +41,8 @@ class Strings {
   static const areYouSureYouWantToLogout = 'Are you sure you want to logout?';
   static const removeThisAccount = 'Remove this account?';
   static const longPressToRemove = 'Long press to remove this account.';
+  static const noContactFound = 'No contact found!';
+  static const addContact = 'Add Contact';
   static const areYouSureYouWantToRemoveThisAccount =
       'Are you sure you want to remove this account?\nThis will erase all the data of your account.';
 }

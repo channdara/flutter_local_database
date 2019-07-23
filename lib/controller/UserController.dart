@@ -17,25 +17,25 @@ class UserController {
 
   DatabaseHelper _databaseHelper = DatabaseHelper(userTableSQL);
 
-  Future<bool> insertUser(User user) async {
+  Future<int> insertUser(User user) async {
     var database = await _databaseHelper.database;
     var result = await database.insert(userTable, user.toJson());
     database.close();
-    return result == 1;
+    return result;
   }
 
-  Future<bool> updateUser(User user) async {
+  Future<int> updateUser(User user) async {
     var database = await _databaseHelper.database;
     var result = await database.update(userTable, user.toJson(), where: '$userID = ?', whereArgs: [user.id]);
     database.close();
-    return result == 1;
+    return result;
   }
 
-  Future<bool> deleteUser(int id) async {
+  Future<int> deleteUser(int id) async {
     var database = await _databaseHelper.database;
     var result = await database.delete(userTable, where: '$userID = ?', whereArgs: [id]);
     database.close();
-    return result == 1;
+    return result;
   }
 
   Future<List<User>> getAllUsers() async {

@@ -59,7 +59,7 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Image.asset('assets/image/img_data_center.png'),
-                Text('No contact found!', style: TextStyle(fontSize: 20.0)),
+                Text(Strings.noContactFound, style: TextStyle(fontSize: 20.0)),
               ],
             ),
           )

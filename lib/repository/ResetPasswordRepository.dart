@@ -20,17 +20,19 @@ class ResetPasswordRepositoryImp {
 
   void checkUsername(String username) {
     _userController.getUserByUsername(username).then((user) {
-      user == null
-          ? _resetPasswordRepo.onCheckUsernameError(Strings.usernameNotFound)
-          : _resetPasswordRepo.onCheckUsernameSuccess(user);
+      if (user == null) {
+        _resetPasswordRepo.onCheckUsernameError(Strings.usernameNotFound);
+        return;
+      }
+      _resetPasswordRepo.onCheckUsernameSuccess(user);
     });
   }
 
   void resetPassword(User user) {
-    _userController.updateUser(user).then((isSuccess) {
-      isSuccess
-          ? _resetPasswordRepo.onResetPasswordSuccess(Strings.yourPasswordHasBeenReset)
-          : _resetPasswordRepo.onResetPasswordError(Strings.sorrySomethingWentWrong);
+    _userController.updateUser(user).then((lastIndex) {
+      _resetPasswordRepo.onResetPasswordSuccess(Strings.yourPasswordHasBeenReset);
+    }).catchError((error) {
+      _resetPasswordRepo.onResetPasswordError(Strings.sorrySomethingWentWrong);
     });
   }
 }

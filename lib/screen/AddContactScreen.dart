@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/screen/HomeScreen.dart';
 import 'package:learning_local_database/widget/BaseBackground.dart';
 import 'package:learning_local_database/widget/BaseCard.dart';
@@ -18,7 +19,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      appBar: AppBar(title: Text('Add Contact'), backgroundColor: Colors.red),
+      appBar: AppBar(title: Text(Strings.addContact), backgroundColor: Colors.red),
       body: Hero(
         tag: HomeScreen.pushTag,
         child: Stack(
@@ -36,7 +37,7 @@ class _AddContactScreenState extends State<AddContactScreen> {
     return SingleChildScrollView(
       child: BaseCard(
         child: BaseTextFormField(
-          labelText: 'Phone Number',
+          labelText: Strings.phoneNumber,
         ),
       ),
     );

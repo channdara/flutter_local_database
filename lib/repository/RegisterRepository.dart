@@ -16,13 +16,13 @@ class RegisterRepositoryImp {
 
   void register(User user) {
     _userController.getUserByUsername(user.username).then((res) {
-      res != null
-          ? _registerRepo.onRegisterError(Strings.usernameIsAlreadyExist)
-          : _userController.insertUser(user).then((isSuccess) {
-              isSuccess
-                  ? _registerRepo.onRegisterSuccess(Strings.yourAccountHasBeenRegistered)
-                  : _registerRepo.onRegisterError(Strings.sorrySomethingWentWrong);
-            });
+      if (res != null) {
+        _registerRepo.onRegisterError(Strings.usernameIsAlreadyExist);
+        return;
+      }
+      _userController.insertUser(user).then((lastIndex) {
+        _registerRepo.onRegisterSuccess(Strings.yourAccountHasBeenRegistered);
+      }).catchError((error) => _registerRepo.onRegisterError(Strings.sorrySomethingWentWrong));
     });
   }
 }

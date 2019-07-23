@@ -14,8 +14,10 @@ class RemoveUserRepositoryImp {
   RemoveUserRepositoryImp(this._removeUserRepo);
 
   void removeUser(int id) {
-    _userController.deleteUser(id).then((isSuccess) {
-      isSuccess ? _removeUserRepo.onRemoveSuccess() : _removeUserRepo.onRemoveError(Strings.sorrySomethingWentWrong);
+    _userController.deleteUser(id).then((lastIndex) {
+      _removeUserRepo.onRemoveSuccess();
+    }).catchError((error) {
+      _removeUserRepo.onRemoveError(Strings.sorrySomethingWentWrong);
     });
   }
 }
