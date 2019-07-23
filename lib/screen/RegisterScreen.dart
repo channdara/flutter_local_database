@@ -6,6 +6,7 @@ import 'package:learning_local_database/model/User.dart';
 import 'package:learning_local_database/repository/RegisterRepository.dart';
 import 'package:learning_local_database/util/AlertDialogUtil.dart';
 import 'package:learning_local_database/widget/BaseBackground.dart';
+import 'package:learning_local_database/widget/BaseCard.dart';
 import 'package:learning_local_database/widget/BaseContainer.dart';
 import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 import 'package:learning_local_database/widget/BaseTextFormField.dart';
@@ -71,14 +72,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterRepo
 
   Widget _buildRegister() {
     return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4.0)],
-        ),
+      child: BaseCard(
         child: Form(
           key: _formKey,
           child: Column(
@@ -135,16 +129,13 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterRepo
                 validator: (text) => text.isEmpty ? Strings.pleaseInputPhoneNumber : null,
               ),
               _sizedBox,
-              InkWell(
-                onTap: () => Platform.isIOS ? FocusScope.of(context).requestFocus(FocusNode()) : null,
-                child: Text(
-                  Strings.privacyPolicy,
-                  style: TextStyle(color: Colors.blue),
-                  textAlign: TextAlign.center,
-                ),
+              Text(
+                Strings.privacyPolicy,
+                style: TextStyle(color: Colors.blue),
+                textAlign: TextAlign.center,
               ),
               Container(
-                margin: EdgeInsets.only(top: 32.0),
+                margin: EdgeInsets.only(top: 48.0),
                 width: double.infinity,
                 height: 48.0,
                 child: BaseRaisedButton(

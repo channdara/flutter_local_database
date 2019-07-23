@@ -5,6 +5,7 @@ import 'package:learning_local_database/helper/SharedPreferencesHelper.dart';
 import 'package:learning_local_database/model/User.dart';
 import 'package:learning_local_database/screen/LoginScreen.dart';
 import 'package:learning_local_database/util/AlertDialogUtil.dart';
+import 'package:learning_local_database/widget/BaseCard.dart';
 import 'package:learning_local_database/widget/BaseContainer.dart';
 import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 
@@ -48,29 +49,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildUserInformation() {
     return Expanded(
       child: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            ListTile(
-              leading: Icon(Icons.supervised_user_circle, size: 40.0),
-              title: Text(_user.username),
-              subtitle: Text(Strings.username),
-            ),
-            ListTile(
-              leading: Icon(Icons.vpn_key, size: 40.0),
-              title: Text('********'),
-              subtitle: Text(Strings.password),
-            ),
-            ListTile(
-              leading: Icon(Icons.email, size: 40.0),
-              title: Text(_user.email),
-              subtitle: Text(Strings.email),
-            ),
-            ListTile(
-              leading: Icon(Icons.phone, size: 40.0),
-              title: Text(_user.phoneNumber),
-              subtitle: Text(Strings.phoneNumber),
-            ),
-          ],
+        child: BaseCard(
+          margin: EdgeInsets.all(0.0),
+          padding: EdgeInsets.all(0.0),
+          child: Column(
+            children: <Widget>[
+              ListTile(
+                leading: Icon(Icons.supervised_user_circle, size: 40.0),
+                title: Text(_user.username),
+                subtitle: Text(Strings.username),
+              ),
+              ListTile(
+                leading: Icon(Icons.vpn_key, size: 40.0),
+                title: Text('********'),
+                subtitle: Text(Strings.password),
+              ),
+              ListTile(
+                leading: Icon(Icons.email, size: 40.0),
+                title: Text(_user.email),
+                subtitle: Text(Strings.email),
+              ),
+              ListTile(
+                leading: Icon(Icons.phone, size: 40.0),
+                title: Text(_user.phoneNumber),
+                subtitle: Text(Strings.phoneNumber),
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 
-class BaseContainer extends StatefulWidget {
+class BaseContainer extends StatelessWidget {
   final AppBar appBar;
   final Widget body;
 
-  BaseContainer({this.appBar, this.body});
+  BaseContainer({this.appBar, @required this.body});
 
-  @override
-  State createState() => _BaseContainerState();
-}
-
-class _BaseContainerState extends State<BaseContainer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: widget.appBar,
-      body: SafeArea(child: widget.body),
+      appBar: this.appBar,
+      body: SafeArea(child: this.body),
     );
   }
 }

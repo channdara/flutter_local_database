@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/helper/SharedPreferencesHelper.dart';
-import 'package:learning_local_database/model/User.dart';
 import 'package:learning_local_database/repository/LoginRepository.dart';
 import 'package:learning_local_database/screen/HomeScreen.dart';
 import 'package:learning_local_database/screen/RegisterScreen.dart';
 import 'package:learning_local_database/screen/ResetPasswordScreen.dart';
 import 'package:learning_local_database/util/AlertDialogUtil.dart';
 import 'package:learning_local_database/widget/BaseBackground.dart';
+import 'package:learning_local_database/widget/BaseCard.dart';
 import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 import 'package:learning_local_database/widget/BaseTextFormField.dart';
 
@@ -21,6 +21,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
   final _formKey = GlobalKey<FormState>();
+  final _sizedBox16 = SizedBox(height: 16.0);
+  final _sizedBox32 = SizedBox(height: 32.0);
   LoginRepositoryImp _loginRepoImp;
   FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
@@ -60,30 +62,23 @@ class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
 
   Widget _buildLogin() {
     return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0, bottom: 8.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4.0)],
-        ),
+      child: BaseCard(
+        padding: EdgeInsets.only(left: 16.0, top: 16.0, right: 16.0, bottom: 0.0),
         child: Form(
           key: _formKey,
           child: Column(
             children: <Widget>[
               Text(Strings.login, style: TextStyle(fontSize: 20.0)),
-              Container(
-                margin: EdgeInsets.only(top: 16.0, bottom: 16.0),
-                child: BaseTextFormField(
-                  labelText: Strings.username,
-                  controller: _usernameController,
-                  focusNode: _usernameFocusNode,
-                  textInputAction: TextInputAction.next,
-                  onFieldSubmitted: (_) => BaseTextFormField.switchNode(context, _usernameFocusNode, _passwordFocusNode),
-                  validator: (text) => text.isEmpty ? Strings.usernameRequired : null,
-                ),
+              _sizedBox32,
+              BaseTextFormField(
+                labelText: Strings.username,
+                controller: _usernameController,
+                focusNode: _usernameFocusNode,
+                textInputAction: TextInputAction.next,
+                onFieldSubmitted: (_) => BaseTextFormField.switchNode(context, _usernameFocusNode, _passwordFocusNode),
+                validator: (text) => text.isEmpty ? Strings.usernameRequired : null,
               ),
+              _sizedBox16,
               BaseTextFormField(
                 labelText: Strings.password,
                 obscureText: true,
@@ -92,10 +87,11 @@ class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
                 textInputAction: TextInputAction.done,
                 validator: (text) => text.isEmpty ? Strings.passwordRequired : null,
               ),
+              _sizedBox32,
               Container(
-                width: double.infinity,
                 height: 48.0,
-                margin: EdgeInsets.only(top: 32.0, bottom: 32.0),
+                margin: EdgeInsets.only(bottom: 16.0),
+                width: double.infinity,
                 child: BaseRaisedButton(
                   text: Strings.login,
                   onPressed: () {
@@ -106,20 +102,13 @@ class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
                   },
                 ),
               ),
-              InkWell(
-                onTap: () => ResetPasswordScreen.push(context),
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(Strings.forgotPassword, style: TextStyle(color: Colors.red)),
-                ),
+              FlatButton(
+                onPressed: () => ResetPasswordScreen.push(context),
+                child: Text(Strings.forgotPassword, style: TextStyle(color: Colors.red)),
               ),
-              InkWell(
-                onTap: () => RegisterScreen.push(context),
-                child: Container(
-                  margin: EdgeInsets.only(top: 24.0),
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(Strings.notYetMemberRegisterHere, style: TextStyle(color: Colors.blue)),
-                ),
+              FlatButton(
+                onPressed: () => RegisterScreen.push(context),
+                child: Text(Strings.notYetMemberRegisterHere, style: TextStyle(color: Colors.blue)),
               ),
             ],
           ),

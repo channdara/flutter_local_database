@@ -4,6 +4,7 @@ import 'package:learning_local_database/model/User.dart';
 import 'package:learning_local_database/repository/ResetPasswordRepository.dart';
 import 'package:learning_local_database/util/AlertDialogUtil.dart';
 import 'package:learning_local_database/widget/BaseBackground.dart';
+import 'package:learning_local_database/widget/BaseCard.dart';
 import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 import 'package:learning_local_database/widget/BaseTextFormField.dart';
 
@@ -82,18 +83,11 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
 
   Widget _buildBody() {
     return SingleChildScrollView(
-      child: Container(
-        margin: EdgeInsets.all(16.0),
-        padding: EdgeInsets.all(16.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8.0),
-          color: Colors.white,
-          boxShadow: [BoxShadow(color: Colors.grey, blurRadius: 4.0)],
-        ),
+      child: BaseCard(
         child: Column(
           children: <Widget>[
             _buildCheckUsername(),
-            _sizedBox,
+            SizedBox(height: 64.0),
             _buildResetPassword(),
           ],
         ),
