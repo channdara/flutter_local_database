@@ -17,10 +17,10 @@ class RegisterScreen extends StatefulWidget {
   State createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> implements RegisterCallback {
+class _RegisterScreenState extends State<RegisterScreen> implements RegisterRepository {
   final _formKey = GlobalKey<FormState>();
   final _sizedBox = SizedBox(height: 16.0);
-  RegisterRepository _registerRepository;
+  RegisterRepositoryImp _registerRepoImp;
   FocusNode _emailFocusNode = FocusNode();
   FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
@@ -34,7 +34,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterCall
 
   @override
   void initState() {
-    _registerRepository = RegisterRepository(this);
+    _registerRepoImp = RegisterRepositoryImp(this);
     super.initState();
   }
 
@@ -157,7 +157,7 @@ class _RegisterScreenState extends State<RegisterScreen> implements RegisterCall
                       email: _emailController.text.trim(),
                       phoneNumber: _phoneNumberController.text,
                     );
-                    _registerRepository.register(user);
+                    _registerRepoImp.register(user);
                   },
                 ),
               ),

@@ -19,9 +19,9 @@ class LoginScreen extends StatefulWidget {
   State createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
+class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
   final _formKey = GlobalKey<FormState>();
-  LoginRepository _loginRepository;
+  LoginRepositoryImp _loginRepoImp;
   FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
   TextEditingController _usernameController = TextEditingController();
@@ -29,7 +29,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
 
   @override
   void initState() {
-    _loginRepository = LoginRepository(this);
+    _loginRepoImp = LoginRepositoryImp(this);
     super.initState();
   }
 
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginCallback {
                     if (!_formKey.currentState.validate()) return;
                     var username = _usernameController.text.trim();
                     var password = _passwordController.text;
-                    _loginRepository.login(username, password);
+                    _loginRepoImp.login(username, password);
                   },
                 ),
               ),

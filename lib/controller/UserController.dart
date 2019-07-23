@@ -21,14 +21,14 @@ class UserController {
     var database = await _databaseHelper.database;
     var result = await database.insert(userTable, user.toJson());
     database.close();
-    return result == 1 ? true : false;
+    return result == 1;
   }
 
   Future<bool> updateUser(User user) async {
     var database = await _databaseHelper.database;
     var result = await database.update(userTable, user.toJson(), where: '$userID = ?', whereArgs: [user.id]);
     database.close();
-    return result == 1 ? true : false;
+    return result == 1;
   }
 
 //  Future<int> delete(int id) async {

@@ -2,7 +2,7 @@ import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/controller/UserController.dart';
 import 'package:learning_local_database/model/User.dart';
 
-abstract class ResetPasswordCallback {
+abstract class ResetPasswordRepository {
   void onCheckUsernameSuccess(User user);
 
   void onCheckUsernameError(String error);
@@ -12,25 +12,25 @@ abstract class ResetPasswordCallback {
   void onResetPasswordError(String error);
 }
 
-class ResetPasswordRepository {
-  ResetPasswordCallback _resetPasswordCallback;
+class ResetPasswordRepositoryImp {
+  ResetPasswordRepository _resetPasswordRepo;
   UserController _userController = UserController();
 
-  ResetPasswordRepository(this._resetPasswordCallback);
+  ResetPasswordRepositoryImp(this._resetPasswordRepo);
 
   void checkUsername(String username) {
     _userController.getUserByUsername(username).then((user) {
       user == null
-          ? _resetPasswordCallback.onCheckUsernameError(Strings.usernameNotFound)
-          : _resetPasswordCallback.onCheckUsernameSuccess(user);
+          ? _resetPasswordRepo.onCheckUsernameError(Strings.usernameNotFound)
+          : _resetPasswordRepo.onCheckUsernameSuccess(user);
     });
   }
 
   void resetPassword(User user) {
     _userController.updateUser(user).then((isSuccess) {
       isSuccess
-          ? _resetPasswordCallback.onResetPasswordSuccess(Strings.yourPasswordHasBeenReset)
-          : _resetPasswordCallback.onResetPasswordError(Strings.sorrySomethingWentWrong);
+          ? _resetPasswordRepo.onResetPasswordSuccess(Strings.yourPasswordHasBeenReset)
+          : _resetPasswordRepo.onResetPasswordError(Strings.sorrySomethingWentWrong);
     });
   }
 }

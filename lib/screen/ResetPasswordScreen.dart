@@ -14,14 +14,14 @@ class ResetPasswordScreen extends StatefulWidget {
   State createState() => _ResetPasswordScreenState();
 }
 
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements ResetPasswordCallback {
+class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements ResetPasswordRepository {
   final _formResetPasswordKey = GlobalKey<FormState>();
   final _formCheckUsernameKey = GlobalKey<FormState>();
   final _sizedBox = SizedBox(height: 16.0);
   User _user;
   bool _isUsernameChecked = false;
   bool _isEnabled = true;
-  ResetPasswordRepository _resetPasswordRepository;
+  ResetPasswordRepositoryImp _resetPasswordRepoImp;
   FocusNode _usernameFocusNode = FocusNode();
   FocusNode _passwordFocusNode = FocusNode();
   FocusNode _confirmPasswordFocusNode = FocusNode();
@@ -31,7 +31,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
 
   @override
   void initState() {
-    _resetPasswordRepository = ResetPasswordRepository(this);
+    _resetPasswordRepoImp = ResetPasswordRepositoryImp(this);
     super.initState();
   }
 
@@ -122,7 +122,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
               onPressed: _isEnabled
                   ? () {
                       if (!_formCheckUsernameKey.currentState.validate()) return;
-                      _resetPasswordRepository.checkUsername(_usernameController.text.trim());
+                      _resetPasswordRepoImp.checkUsername(_usernameController.text.trim());
                     }
                   : null,
             ),
@@ -171,7 +171,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
                   ? () {
                       if (!_formResetPasswordKey.currentState.validate()) return;
                       _user.password = _confirmPasswordController.text;
-                      _resetPasswordRepository.resetPassword(_user);
+                      _resetPasswordRepoImp.resetPassword(_user);
                     }
                   : null,
             ),
