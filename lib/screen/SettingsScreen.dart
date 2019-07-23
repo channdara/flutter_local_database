@@ -3,6 +3,7 @@ import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/controller/UserController.dart';
 import 'package:learning_local_database/helper/SharedPreferencesHelper.dart';
 import 'package:learning_local_database/model/User.dart';
+import 'package:learning_local_database/repository/RemoveUserRepository.dart';
 import 'package:learning_local_database/screen/LoginScreen.dart';
 import 'package:learning_local_database/util/AlertDialogUtil.dart';
 import 'package:learning_local_database/widget/BaseCard.dart';
@@ -21,13 +22,26 @@ class SettingsScreen extends StatefulWidget {
   State createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> {
+class _SettingsScreenState extends State<SettingsScreen> implements RemoveUserRepository {
+  final _sizedBox16 = SizedBox(height: 16.0);
   User _user = User.defaultConstructor();
+  RemoveUserRepositoryImp _removeUserRepositoryImp;
 
   @override
   void initState() {
+    _removeUserRepositoryImp = RemoveUserRepositoryImp(this);
     _getUserFromDatabase();
     super.initState();
+  }
+
+  @override
+  void onRemoveSuccess() {
+    _logout();
+  }
+
+  @override
+  void onRemoveError(String error) {
+    AlertDialogUtil.showAlertDialog(context, Strings.error, error, () => Navigator.pop(context));
   }
 
   @override
@@ -49,33 +63,59 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget _buildUserInformation() {
     return Expanded(
       child: SingleChildScrollView(
-        child: BaseCard(
-          margin: EdgeInsets.all(0.0),
-          padding: EdgeInsets.all(0.0),
-          child: Column(
-            children: <Widget>[
-              ListTile(
-                leading: Icon(Icons.supervised_user_circle, size: 40.0),
-                title: Text(_user.username),
-                subtitle: Text(Strings.username),
+        child: Column(
+          children: <Widget>[
+            BaseCard(
+              margin: EdgeInsets.all(0.0),
+              padding: EdgeInsets.all(0.0),
+              child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: _buildListTileIcon('ic_user'),
+                    title: Text(_user.username),
+                    subtitle: Text(Strings.username),
+                  ),
+                  ListTile(
+                    leading: _buildListTileIcon('ic_password'),
+                    title: Text('********'),
+                    subtitle: Text(Strings.password),
+                  ),
+                  ListTile(
+                    leading: _buildListTileIcon('ic_email'),
+                    title: Text(_user.email),
+                    subtitle: Text(Strings.email),
+                  ),
+                  ListTile(
+                    leading: _buildListTileIcon('ic_phone'),
+                    title: Text(_user.phoneNumber),
+                    subtitle: Text(Strings.phoneNumber),
+                  ),
+                ],
               ),
-              ListTile(
-                leading: Icon(Icons.vpn_key, size: 40.0),
-                title: Text('********'),
-                subtitle: Text(Strings.password),
+            ),
+            _sizedBox16,
+            BaseCard(
+              margin: EdgeInsets.all(0.0),
+              padding: EdgeInsets.all(0.0),
+              color: Colors.red[100],
+              child: ListTile(
+                leading: _buildListTileIcon('ic_user'),
+                title: Text(Strings.removeThisAccount),
+                subtitle: Text(Strings.longPressToRemove),
+                onLongPress: () => AlertDialogUtil.showConfirmDialog(
+                  context,
+                  Strings.thinking,
+                  Strings.areYouSureYouWantToRemoveThisAccount,
+                  () {
+                    Navigator.pop(context);
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      _removeUserRepositoryImp.removeUser(widget.id);
+                    });
+                  },
+                ),
               ),
-              ListTile(
-                leading: Icon(Icons.email, size: 40.0),
-                title: Text(_user.email),
-                subtitle: Text(Strings.email),
-              ),
-              ListTile(
-                leading: Icon(Icons.phone, size: 40.0),
-                title: Text(_user.phoneNumber),
-                subtitle: Text(Strings.phoneNumber),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
@@ -91,9 +131,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
           context,
           Strings.thinking,
           Strings.areYouSureYouWantToLogout,
-          () => SharedPreferencesHelper.removeTokenAndUser().then((_) => LoginScreen.pushAndRemoveUntil(context)),
+          () => _logout(),
         ),
       ),
+    );
+  }
+
+  Widget _buildListTileIcon(String asset) {
+    return Container(
+      height: 40,
+      width: 40,
+      padding: EdgeInsets.all(4.0),
+      child: Image.asset('assets/image/$asset.png'),
     );
   }
 
@@ -103,5 +152,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
       this._user = user;
       setState(() {});
     });
+  }
+
+  void _logout() {
+    SharedPreferencesHelper.removeTokenAndUser().then((_) => LoginScreen.pushAndRemoveUntil(context));
   }
 }

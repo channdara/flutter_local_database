@@ -39,4 +39,8 @@ class Strings {
   static const usernameNotFound = 'Username not found.';
   static const yourPasswordHasBeenReset = 'Your password has been reset';
   static const areYouSureYouWantToLogout = 'Are you sure you want to logout?';
+  static const removeThisAccount = 'Remove this account?';
+  static const longPressToRemove = 'Long press to remove this account.';
+  static const areYouSureYouWantToRemoveThisAccount =
+      'Are you sure you want to remove this account?\nThis will erase all the data of your account.';
 }

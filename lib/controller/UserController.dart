@@ -31,17 +31,12 @@ class UserController {
     return result == 1;
   }
 
-//  Future<int> delete(int id) async {
-//    var db = await _databaseHelper.getDatabase;
-//    return await db.delete(userTable, where: '$userID = ?', whereArgs: [id]);
-//  }
-
-//  Future<List<Map<String, dynamic>>> fetchAllUser() async {
-//    var database = await _databaseHelper.database;
-//    var result = await database.query(userTable);
-//    database.close();
-//    return result.toList();
-//  }
+  Future<bool> deleteUser(int id) async {
+    var database = await _databaseHelper.database;
+    var result = await database.delete(userTable, where: '$userID = ?', whereArgs: [id]);
+    database.close();
+    return result == 1;
+  }
 
   Future<List<User>> getAllUsers() async {
     List<User> allUser = [];
