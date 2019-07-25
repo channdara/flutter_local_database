@@ -37,16 +37,16 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
   }
 
   @override
+  void onError(String error) {
+    AlertDialogUtil.showAlertDialog(context, Strings.error, error, () => Navigator.pop(context));
+  }
+
+  @override
   void onCheckUsernameSuccess(User user) {
     _isUsernameChecked = true;
     _isEnabled = false;
     _user = user;
     FocusScope.of(context).requestFocus(_passwordFocusNode);
-  }
-
-  @override
-  void onCheckUsernameError(String error) {
-    AlertDialogUtil.showAlertDialog(context, Strings.error, error, () => Navigator.pop(context));
   }
 
   @override
@@ -60,11 +60,6 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> implements Re
       Navigator.pop(context);
       setState(() {});
     });
-  }
-
-  @override
-  void onResetPasswordError(String error) {
-    AlertDialogUtil.showAlertDialog(context, Strings.error, error, () => Navigator.pop(context));
   }
 
   @override

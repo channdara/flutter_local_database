@@ -3,13 +3,11 @@ import 'package:learning_local_database/controller/UserController.dart';
 import 'package:learning_local_database/model/User.dart';
 
 abstract class ResetPasswordRepository {
+  void onError(String error);
+
   void onCheckUsernameSuccess(User user);
 
-  void onCheckUsernameError(String error);
-
   void onResetPasswordSuccess(String message);
-
-  void onResetPasswordError(String error);
 }
 
 class ResetPasswordRepositoryImp {
@@ -21,7 +19,7 @@ class ResetPasswordRepositoryImp {
   void checkUsername(String username) {
     _userController.getUserByUsername(username).then((user) {
       if (user == null) {
-        _resetPasswordRepo.onCheckUsernameError(Strings.usernameNotFound);
+        _resetPasswordRepo.onError(Strings.usernameNotFound);
         return;
       }
       _resetPasswordRepo.onCheckUsernameSuccess(user);
@@ -32,7 +30,7 @@ class ResetPasswordRepositoryImp {
     _userController.updateUser(user).then((lastIndex) {
       _resetPasswordRepo.onResetPasswordSuccess(Strings.yourPasswordHasBeenReset);
     }).catchError((error) {
-      _resetPasswordRepo.onResetPasswordError(Strings.sorrySomethingWentWrong);
+      _resetPasswordRepo.onError(Strings.sorrySomethingWentWrong);
     });
   }
 }

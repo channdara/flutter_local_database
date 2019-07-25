@@ -3,9 +3,9 @@ import 'package:learning_local_database/controller/UserController.dart';
 import 'package:learning_local_database/model/User.dart';
 
 abstract class RegisterRepository {
-  void onRegisterSuccess(String message);
-
   void onRegisterError(String error);
+
+  void onRegisterSuccess(String message);
 }
 
 class RegisterRepositoryImp {
@@ -22,7 +22,9 @@ class RegisterRepositoryImp {
       }
       _userController.insertUser(user).then((lastIndex) {
         _registerRepo.onRegisterSuccess(Strings.yourAccountHasBeenRegistered);
-      }).catchError((error) => _registerRepo.onRegisterError(Strings.sorrySomethingWentWrong));
+      }).catchError((error) {
+        _registerRepo.onRegisterError(Strings.sorrySomethingWentWrong);
+      });
     });
   }
 }

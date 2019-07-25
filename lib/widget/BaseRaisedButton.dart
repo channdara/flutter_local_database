@@ -7,7 +7,7 @@ class BaseRaisedButton extends ButtonTheme {
   final Color color;
 
   BaseRaisedButton({
-    this.text,
+    @required this.text,
     this.fontSize = 20.0,
     this.onPressed,
     this.color = Colors.red,

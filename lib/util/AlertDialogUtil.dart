@@ -31,4 +31,25 @@ class AlertDialogUtil {
       ),
     );
   }
+
+  static void showSelectDialog(
+    BuildContext context,
+    String title,
+    String content,
+    VoidCallback onLeftPressed,
+    VoidCallback onRightPressed,
+  ) {
+    showDialog(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        actions: <Widget>[
+          BaseRaisedButton(text: Strings.fromCamera, fontSize: 16.0, color: Colors.blue, onPressed: onLeftPressed),
+          BaseRaisedButton(text: Strings.fromGallery, fontSize: 16.0, color: Colors.green, onPressed: onRightPressed),
+        ],
+      ),
+    );
+  }
 }

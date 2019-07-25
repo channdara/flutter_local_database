@@ -3,7 +3,7 @@ import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/controller/UserController.dart';
 import 'package:learning_local_database/helper/SharedPreferencesHelper.dart';
 import 'package:learning_local_database/model/User.dart';
-import 'package:learning_local_database/repository/RemoveUserRepository.dart';
+import 'package:learning_local_database/repository/SettingsRepository.dart';
 import 'package:learning_local_database/screen/LoginScreen.dart';
 import 'package:learning_local_database/util/AlertDialogUtil.dart';
 import 'package:learning_local_database/widget/BaseCard.dart';
@@ -11,32 +11,34 @@ import 'package:learning_local_database/widget/BaseContainer.dart';
 import 'package:learning_local_database/widget/BaseRaisedButton.dart';
 
 class SettingsScreen extends StatefulWidget {
-  static void push(BuildContext context, int id) =>
-      Navigator.push(context, MaterialPageRoute(builder: (_) => SettingsScreen(id)));
+  static void push(BuildContext context, int userID) =>
+      Navigator.push(context, MaterialPageRoute(builder: (_) => SettingsScreen(userID)));
 
-  final int id;
+  final int userID;
 
-  SettingsScreen(this.id);
+  SettingsScreen(this.userID);
 
   @override
   State createState() => _SettingsScreenState();
 }
 
-class _SettingsScreenState extends State<SettingsScreen> implements RemoveUserRepository {
+class _SettingsScreenState extends State<SettingsScreen> implements SettingsRepository {
   final _sizedBox16 = SizedBox(height: 16.0);
-  User _user = User.defaultConstructor();
-  RemoveUserRepositoryImp _removeUserRepositoryImp;
+  User _user = User.defaultConst();
+  SettingsRepositoryImp _removeUserRepositoryImp;
 
   @override
   void initState() {
-    _removeUserRepositoryImp = RemoveUserRepositoryImp(this);
+    _removeUserRepositoryImp = SettingsRepositoryImp(this);
     _getUserFromDatabase();
     super.initState();
   }
 
   @override
   void onRemoveSuccess() {
-    _logout();
+    Future.delayed(Duration(milliseconds: 500), () {
+      _logout();
+    });
   }
 
   @override
@@ -108,9 +110,7 @@ class _SettingsScreenState extends State<SettingsScreen> implements RemoveUserRe
                   Strings.areYouSureYouWantToRemoveThisAccount,
                   () {
                     Navigator.pop(context);
-                    Future.delayed(Duration(milliseconds: 500), () {
-                      _removeUserRepositoryImp.removeUser(widget.id);
-                    });
+                    _removeUserRepositoryImp.removeUser(widget.userID);
                   },
                 ),
               ),
@@ -147,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> implements RemoveUserRe
   }
 
   void _getUserFromDatabase() async {
-    UserController().getUserByID(widget.id).then((user) {
+    UserController().getUserByID(widget.userID).then((user) {
       if (user == null) return;
       this._user = user;
       setState(() {});

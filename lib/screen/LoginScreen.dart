@@ -36,10 +36,10 @@ class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
   }
 
   @override
-  void onLoginSuccess(int id, String token) {
+  void onLoginSuccess(int userID, String token) {
     SharedPreferencesHelper.saveToken(token);
-    SharedPreferencesHelper.saveUserID(id);
-    HomeScreen.pushAndRemoveUntil(context, id);
+    SharedPreferencesHelper.saveUserID(userID);
+    HomeScreen.pushAndRemoveUntil(context, userID);
   }
 
   @override

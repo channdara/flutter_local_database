@@ -2,20 +2,20 @@ import 'package:learning_local_database/helper/DatabaseHelper.dart';
 import 'package:learning_local_database/model/User.dart';
 
 class UserController {
-  static final userTable = 'user_table';
   static final userID = 'user_id';
   static final userName = 'user_name';
   static final userPassword = 'user_password';
   static final userEmail = 'user_email';
   static final userPhoneNumber = 'user_phone_number';
-  static final userTableSQL = """CREATE TABLE ${UserController.userTable} (
-    ${UserController.userID} INTEGER PRIMARY KEY AUTOINCREMENT,
-    ${UserController.userName} TEXT NOT NULL,
-    ${UserController.userPassword} TEXT NOT NULL,
-    ${UserController.userEmail} TEXT NOT NULL,
-    ${UserController.userPhoneNumber} TEXT NOT NULL)""";
+  static final userTable = 'user_table';
+  static final userTableSQL = """CREATE TABLE $userTable (
+  $userID INTEGER PRIMARY KEY AUTOINCREMENT,
+  $userName TEXT NOT NULL,
+  $userPassword TEXT NOT NULL,
+  $userEmail TEXT NOT NULL,
+  $userPhoneNumber TEXT NOT NULL)""";
 
-  DatabaseHelper _databaseHelper = DatabaseHelper(userTableSQL);
+  DatabaseHelper _databaseHelper = DatabaseHelper();
 
   Future<int> insertUser(User user) async {
     var database = await _databaseHelper.database;
@@ -26,7 +26,7 @@ class UserController {
 
   Future<int> updateUser(User user) async {
     var database = await _databaseHelper.database;
-    var result = await database.update(userTable, user.toJson(), where: '$userID = ?', whereArgs: [user.id]);
+    var result = await database.update(userTable, user.toJson(), where: '$userID = ?', whereArgs: [user.userID]);
     database.close();
     return result;
   }
@@ -43,6 +43,7 @@ class UserController {
     var database = await _databaseHelper.database;
     var result = await database.query(userTable);
     result.forEach((res) => allUser.add(User.fromJson(res)));
+    database.close();
     return allUser;
   }
 

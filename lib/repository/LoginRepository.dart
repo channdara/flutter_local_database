@@ -2,9 +2,9 @@ import 'package:learning_local_database/constant/Strings.dart';
 import 'package:learning_local_database/controller/UserController.dart';
 
 abstract class LoginRepository {
-  void onLoginSuccess(int id, String token);
-
   void onLoginError(String error);
+
+  void onLoginSuccess(int userID, String token);
 }
 
 class LoginRepositoryImp {
@@ -24,7 +24,7 @@ class LoginRepositoryImp {
         return;
       }
       var token = '${user.username}_${user.email}_${user.phoneNumber}';
-      _loginRepo.onLoginSuccess(user.id, token);
+      _loginRepo.onLoginSuccess(user.userID, token);
     });
   }
 }

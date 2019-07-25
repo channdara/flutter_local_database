@@ -3,7 +3,10 @@ class Strings {
   static const cancel = 'Cancel';
   static const thinking = 'Hmmm...';
   static const home = 'Home';
+  static const save = 'Save';
   static const login = 'Login';
+  static const edit = 'Edit';
+  static const delete = 'Delete';
   static const error = 'Error!';
   static const logout = 'Logout';
   static const username = 'Username';
@@ -22,6 +25,10 @@ class Strings {
   static const resetPassword = 'Reset Password';
   static const checkUsername = 'Check Username';
   static const resetNow = 'Reset Now';
+  static const contactName = 'Contact Name';
+  static const contactNumber = 'Contact Number';
+  static const fromCamera = 'From Camera';
+  static const fromGallery = 'From Gallery';
   static const notYetMemberRegisterHere = 'Not yet a memeber? Register here.';
   static const pleaseInputUsername = 'Please input username';
   static const pleaseInputPassword = 'Please input password';
@@ -30,6 +37,8 @@ class Strings {
   static const pleaseInputNewConfirmPassword = 'Please input new password again';
   static const pleaseInputEmail = 'Please input email';
   static const pleaseInputPhoneNumber = 'Please input phone number';
+  static const pleaseInputContactName = 'Please input contact name';
+  static const pleaseInputContactNumber = 'Please input contact number';
   static const confirmPasswordDoesNotMatch = 'Confirm password and password does not match';
   static const privacyPolicy = 'No need to accept any fucking Privacy Policy. Just create your own account now. xD';
   static const usernameIsAlreadyExist = 'Username is already exist.';
@@ -43,6 +52,8 @@ class Strings {
   static const longPressToRemove = 'Long press to remove this account.';
   static const noContactFound = 'No contact found!';
   static const addContact = 'Add Contact';
+  static const selectImageSource = 'Select Image Source';
+  static const selectImageSourceContent = 'You can select image from gallery or you can choose to take new one from camera.';
   static const areYouSureYouWantToRemoveThisAccount =
       'Are you sure you want to remove this account?\nThis will erase all the data of your account.';
 }
