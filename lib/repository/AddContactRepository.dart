@@ -26,7 +26,7 @@ class AddContactRepositoryImp {
 
   void updateContact(Contact contact) {
     _contactController.updateContact(contact).then((lastIndex) {
-      _contactRepo.onUpdateContactSuccess('Contact update successful.');
+      _contactRepo.onUpdateContactSuccess(Strings.contactUpdateSuccessful);
     }).catchError((error) {
       _contactRepo.onError(Strings.sorrySomethingWentWrong);
     });

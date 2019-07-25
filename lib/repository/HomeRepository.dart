@@ -26,7 +26,7 @@ class HomeRepositoryImp {
 
   void deleteContact(int contactID) {
     _contactController.deleteContact(contactID).then((lastIndex) {
-      _homeRepo.onDeleteContactSuccess('Contact has been removed.');
+      _homeRepo.onDeleteContactSuccess(Strings.contactHasBeenRemoved);
     }).catchError((error) {
       _homeRepo.onError(Strings.sorrySomethingWentWrong);
     });

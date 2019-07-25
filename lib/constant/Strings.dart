@@ -52,6 +52,8 @@ class Strings {
   static const longPressToRemove = 'Long press to remove this account.';
   static const noContactFound = 'No contact found!';
   static const addContact = 'Add Contact';
+  static const contactUpdateSuccessful = 'Contact update successful.';
+  static const contactHasBeenRemoved = 'Contact has been removed.';
   static const selectImageSource = 'Select Image Source';
   static const selectImageSourceContent = 'You can select image from gallery or you can choose to take new one from camera.';
   static const areYouSureYouWantToRemoveThisAccount =
