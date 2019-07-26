@@ -60,20 +60,15 @@ class _AddContactScreenState extends State<AddContactScreen> implements AddConta
   @override
   void onUpdateContactSuccess(String message) {
     AlertDialogUtil.showAlertDialog(context, Strings.congratulation, message, () {
-      _imagePath = 'assets/image/ic_unknown_user.png';
-      _contactNameController.text = '';
-      _contactNumberController.text = '';
-      _isEditContact = false;
       Navigator.pop(context);
       Navigator.pop(context);
-      setState(() {});
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return BaseContainer(
-      appBar: AppBar(title: Text(Strings.addContact), backgroundColor: Colors.red),
+      appBar: AppBar(title: Text(_isEditContact ? Strings.editContact : Strings.addContact), backgroundColor: Colors.red),
       body: Stack(
         alignment: Alignment.center,
         children: <Widget>[
@@ -92,17 +87,22 @@ class _AddContactScreenState extends State<AddContactScreen> implements AddConta
           child: Column(
             children: <Widget>[
               InkWell(
-                onTap: () => AlertDialogUtil.showSelectDialog(
+                onTap: () => AlertDialogUtil.showSelectImageDialog(
                   context,
                   Strings.selectImageSource,
                   Strings.selectImageSourceContent,
-                  () {
+                  onCameraPressed: () {
                     _getImage(ImageSource.camera);
                     Navigator.pop(context);
                   },
-                  () {
+                  onGalleryPressed: () {
                     _getImage(ImageSource.gallery);
                     Navigator.pop(context);
+                  },
+                  onRemovePressed: () {
+                    _imagePath = 'assets/image/ic_unknown_user.png';
+                    Navigator.pop(context);
+                    setState(() {});
                   },
                 ),
                 child: BaseCircleImage(height: 200.0, width: 200.0, imagePath: _imagePath),

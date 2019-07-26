@@ -8,6 +8,7 @@ class Strings {
   static const edit = 'Edit';
   static const delete = 'Delete';
   static const error = 'Error!';
+  static const remove = 'Remove';
   static const logout = 'Logout';
   static const username = 'Username';
   static const password = 'Password';
@@ -27,8 +28,8 @@ class Strings {
   static const resetNow = 'Reset Now';
   static const contactName = 'Contact Name';
   static const contactNumber = 'Contact Number';
-  static const fromCamera = 'From Camera';
-  static const fromGallery = 'From Gallery';
+  static const fromCamera = 'Camera';
+  static const fromGallery = 'Gallery';
   static const notYetMemberRegisterHere = 'Not yet a memeber? Register here.';
   static const pleaseInputUsername = 'Please input username';
   static const pleaseInputPassword = 'Please input password';
@@ -52,6 +53,7 @@ class Strings {
   static const longPressToRemove = 'Long press to remove this account.';
   static const noContactFound = 'No contact found!';
   static const addContact = 'Add Contact';
+  static const editContact = 'Edit Contact';
   static const contactUpdateSuccessful = 'Contact update successful.';
   static const contactHasBeenRemoved = 'Contact has been removed.';
   static const selectImageSource = 'Select Image Source';

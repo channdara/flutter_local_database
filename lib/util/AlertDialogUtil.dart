@@ -32,13 +32,14 @@ class AlertDialogUtil {
     );
   }
 
-  static void showSelectDialog(
+  static void showSelectImageDialog(
     BuildContext context,
     String title,
-    String content,
-    VoidCallback onLeftPressed,
-    VoidCallback onRightPressed,
-  ) {
+    String content, {
+    VoidCallback onCameraPressed,
+    VoidCallback onGalleryPressed,
+    VoidCallback onRemovePressed,
+  }) {
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
@@ -46,8 +47,9 @@ class AlertDialogUtil {
         content: Text(content),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         actions: <Widget>[
-          BaseRaisedButton(text: Strings.fromCamera, fontSize: 16.0, color: Colors.blue, onPressed: onLeftPressed),
-          BaseRaisedButton(text: Strings.fromGallery, fontSize: 16.0, color: Colors.green, onPressed: onRightPressed),
+          BaseRaisedButton(text: Strings.remove, fontSize: 16.0, color: Colors.red, onPressed: onRemovePressed),
+          BaseRaisedButton(text: Strings.fromCamera, fontSize: 16.0, color: Colors.blue, onPressed: onCameraPressed),
+          BaseRaisedButton(text: Strings.fromGallery, fontSize: 16.0, color: Colors.green, onPressed: onGalleryPressed),
         ],
       ),
     );

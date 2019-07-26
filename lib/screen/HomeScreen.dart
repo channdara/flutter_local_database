@@ -21,12 +21,12 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> implements HomeRepository {
   List<Contact> _contacts = [];
-  HomeRepositoryImp _repo;
+  HomeRepositoryImp _homeRepositoryImp;
 
   @override
   void initState() {
-    _repo = HomeRepositoryImp(this);
-    _repo.getAllContactsByUserID(widget.userID);
+    _homeRepositoryImp = HomeRepositoryImp(this);
+    _homeRepositoryImp.getAllContactsByUserID(widget.userID);
     super.initState();
   }
 
@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeRepository {
   void onDeleteContactSuccess(String error) {
     AlertDialogUtil.showAlertDialog(context, Strings.congratulation, error, () {
       Navigator.pop(context);
-      _repo.getAllContactsByUserID(widget.userID);
+      _homeRepositoryImp.getAllContactsByUserID(widget.userID);
     });
   }
 
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeRepository {
     return FloatingActionButton(
       onPressed: () async {
         await Navigator.push(context, MaterialPageRoute(builder: (_) => AddContactScreen(userID: widget.userID)));
-        _repo.getAllContactsByUserID(widget.userID);
+        _homeRepositoryImp.getAllContactsByUserID(widget.userID);
       },
       backgroundColor: Colors.green,
       child: Icon(Icons.add),
@@ -126,7 +126,7 @@ class _HomeScreenState extends State<HomeScreen> implements HomeRepository {
             _editContact(contact);
             break;
           case Strings.delete:
-            _repo.deleteContact(contact.contactID);
+            _homeRepositoryImp.deleteContact(contact.contactID);
             break;
         }
       },
@@ -135,6 +135,6 @@ class _HomeScreenState extends State<HomeScreen> implements HomeRepository {
 
   void _editContact(Contact contact) async {
     await Navigator.push(context, MaterialPageRoute(builder: (_) => AddContactScreen(contact: contact)));
-    _repo.getAllContactsByUserID(widget.userID);
+    _homeRepositoryImp.getAllContactsByUserID(widget.userID);
   }
 }

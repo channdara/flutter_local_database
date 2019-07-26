@@ -7,7 +7,13 @@ class User {
   String email;
   String phoneNumber;
 
-  User.defaultConst({this.userID = 0, this.username = '', this.password = '', this.email = '', this.phoneNumber = ''});
+  User.defaultConst({
+    this.userID = 0,
+    this.username = '',
+    this.password = '',
+    this.email = '',
+    this.phoneNumber = '',
+  });
 
   User({this.userID, this.username, this.password, this.email, this.phoneNumber});
 

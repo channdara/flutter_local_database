@@ -21,7 +21,7 @@ class SettingsRepositoryImp {
     }).catchError((error) {
       _removeUserRepo.onRemoveError(Strings.sorrySomethingWentWrong);
     });
-    _contactController.deleteContactByUserID(userID).then((lasIndex) {
+    _contactController.deleteContactsByUserID(userID).then((lasIndex) {
       _removeUserRepo.onRemoveSuccess();
     }).catchError((error) {
       _removeUserRepo.onRemoveError(error);

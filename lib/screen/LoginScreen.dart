@@ -21,7 +21,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
   final _formKey = GlobalKey<FormState>();
-  final _sizedBox16 = SizedBox(height: 16.0);
   final _sizedBox32 = SizedBox(height: 32.0);
   LoginRepositoryImp _loginRepoImp;
   FocusNode _usernameFocusNode = FocusNode();
@@ -78,7 +77,7 @@ class _LoginScreenState extends State<LoginScreen> implements LoginRepository {
                 onFieldSubmitted: (_) => BaseTextFormField.switchNode(context, _usernameFocusNode, _passwordFocusNode),
                 validator: (text) => text.isEmpty ? Strings.usernameRequired : null,
               ),
-              _sizedBox16,
+              SizedBox(height: 16.0),
               BaseTextFormField(
                 labelText: Strings.password,
                 obscureText: true,

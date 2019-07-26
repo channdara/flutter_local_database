@@ -1,9 +1,10 @@
+import 'package:learning_local_database/controller/UserController.dart';
 import 'package:learning_local_database/helper/DatabaseHelper.dart';
 import 'package:learning_local_database/model/Contact.dart';
 
 class ContactController {
   static final contactID = 'contact_id';
-  static final userID = 'user_id';
+  static final userID = UserController.userID;
   static final contactImagePath = 'contact_image_path';
   static final contactName = 'contact_name';
   static final contactNumber = 'contact_number';
@@ -38,7 +39,7 @@ class ContactController {
     return result;
   }
 
-  Future<int> deleteContactByUserID(int id) async {
+  Future<int> deleteContactsByUserID(int id) async {
     var database = await _databaseHelper.database;
     var result = await database.delete(contactTable, where: '$userID = ?', whereArgs: [id]);
     database.close();
@@ -46,18 +47,18 @@ class ContactController {
   }
 
   Future<List<Contact>> getAllContactsByUserID(int id) async {
-    List<Contact> allContact = [];
-    List<Contact> allContactByUser = [];
+    List<Contact> allContacts = [];
+    List<Contact> allContactsByUser = [];
     var database = await _databaseHelper.database;
     var result = await database.query(contactTable);
     if (result == null) {
       database.close();
-      return allContactByUser;
+      return allContactsByUser;
     }
-    result.forEach((res) => allContact.add(Contact.fromJson(res)));
-    allContactByUser = allContact.where((con) => con.userID == id).toList();
-    allContactByUser.sort((a, b) => a.contactName.compareTo(b.contactName));
+    result.forEach((res) => allContacts.add(Contact.fromJson(res)));
+    allContactsByUser = allContacts.where((con) => con.userID == id).toList();
+    allContactsByUser.sort((a, b) => a.contactName.compareTo(b.contactName));
     database.close();
-    return allContactByUser;
+    return allContactsByUser;
   }
 }
