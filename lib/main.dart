@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:learning_local_database/screen/SplashScreen.dart';
 
-void main() => SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) => runApp(Main()));
+void main() => runApp(Main());
 
 class Main extends StatefulWidget {
   @override
@@ -10,6 +10,13 @@ class Main extends StatefulWidget {
 }
 
 class _MainState extends State<Main> {
+
+  @override
+  void initState() {
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
